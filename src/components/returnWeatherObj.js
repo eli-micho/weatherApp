@@ -1,5 +1,14 @@
-const rootDiv = document.querySelector('#root');
 const api_key = 'a3b38d6618c940cbb6fa276b682987de';
+
+const validateCity = () => {
+    if(document.querySelector('#search-input').value == ''){
+        return true
+    }
+};
+
+const renderError = () => {
+    document.querySelector('#error-message-container').style.display = 'block';
+}
 
 async function returnWeatherCall(url) {
     try{
@@ -14,38 +23,53 @@ async function returnWeatherCall(url) {
 
 
 const getWeatherUrl = () => {
-    const city = document.querySelector('#searchInput').value;
+    if(validateCity()){
+        renderError();
+        return false
+    };
+    const city = document.querySelector('#search-input').value;
     const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}&units=metric`;
 
-    console.log(returnWeatherCall(url))
 };
 
 const renderSearchUI = (() => {
-    const weatherForm = document.createElement('form');
-    const searchInput = document.createElement('input');
-    const submitBtn = document.createElement('input');
+    const submitBtn = document.querySelector('#search-btn');
 
-    searchInput.setAttribute('type', 'text');
-    searchInput.placeholder = 'Enter City Name';
-    searchInput.setAttribute('id', 'searchInput');
-
-    submitBtn.setAttribute('type', 'submit');
-    submitBtn.value = 'Search';
     submitBtn.addEventListener('click', function(e) {
         e.preventDefault()
         getWeatherUrl()
     })
-
-    weatherForm.appendChild(searchInput);
-    weatherForm.appendChild(submitBtn);
-    rootDiv.appendChild(weatherForm);
-
     
 })();
 
+/* const renderWeatherToDom = () => {
+    const container = document.querySelector('#search-results-container');
+    const location = document.createElement('h1');
+    const temperature = document.createElement('span');
+    const feelsLikeTemp = document.createElement('span');
+    const minTemp = document.createElement('span');
+    const maxTemp = document.createElement('span');
+    const humidity = document.createElement('span');
 
-/* async const returnWeatherCall = (() => {
-    const res = await fetch('api.openweathermap.org/data/2.5/weather?q={city name}&appid=2da748d9476b735afba174a20b75539a')
-})();
- */
+    location.textContent = weatherData.name;
+
+    temperature.textContent = `${weatherData.main[temp]}&#176;`
+
+    feelsLikeTemp.textContent = `${weatherData.main[feels_like]}&#176;`
+
+    minTemp.textContent = `${weatherData.main[temp_min]}&#176;`;
+
+    maxTemp.textContent = `${weatherData.main[temp_max]}&#176;`;
+
+    humidity.textContent = `${weatherData.main[humidity]}&#176;`;
+
+    container.appendChild(location)
+    container.appendChild(temperature)
+    container.appendChild(feelsLikeTemp)
+    container.appendChild(minTemp)
+    container.appendChild(maxTemp)
+    container.appendChild(humidity);
+}; */
+
+
 export { renderSearchUI }
