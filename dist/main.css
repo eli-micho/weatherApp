@@ -15,6 +15,25 @@ header {
     font-size: 8vh;
 }
 
+header > span {
+    position: fixed;
+    top: 6vh;
+    right: 0;
+    font-size: 22px;
+    color: #f7f7e8;
+    text-transform: uppercase;
+}
+
+#github-link {
+    cursor: pointer;
+    color: #ce6262;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+}
+
 #app-title {
     margin:0 auto;
     padding: 0;
@@ -28,18 +47,26 @@ header {
     height: calc(100vh - 85px);
     background-color: #f7f7e8;
     display: flex;
-    flex-wrap: wrap;
-    
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.break {
+    height: 90%;
+    border: 1px solid #9DAD7F;
 }
 
 #search-container {
-    width: 50%;
+    width: 49%;
     height: 100%;
 
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: center;
 }
+
 
 #search-input {
     size: 60;
@@ -70,11 +97,52 @@ header {
 }
 
 #display-results-container{
-    width: 50%;
+    width: 49%;
     height: 100%;
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+    animation: 0.5s ease-out 0s 1 fadeInFromLeft;
+    padding-left: 100px;
+    padding-top: 200px;
 }
 
 #error-message-container {
     color: red;
-    font-size: 15px;
+    font-size: 16px;
+    padding-left: 20px;
+    animation: 0.3s ease-out 0s 1 fadeInFromLeft;
 }
+
+#location {
+    font-size: 55px;
+    margin: 0;
+    padding: 0;
+}
+
+#current-time {
+    font-size: 25px;
+}
+
+#data-wrap {
+    display: flex;
+    flex-direction: column;
+    padding-top: 150px;
+}
+
+#data-wrap > span {
+    font-size: 25px;
+    padding: 15px 0;
+}
+
+@keyframes fadeInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
