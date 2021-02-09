@@ -14,8 +14,7 @@ async function returnWeatherCall(url) {
     try{
         const res = await fetch(url, {mode: "cors"});
         const weatherData = await res.json();
-        console.log(weatherData)
-        return weatherData
+        renderWeatherToDom(weatherData)
     }catch(err){
         console.log(err)
     }
@@ -29,7 +28,7 @@ const getWeatherUrl = () => {
     };
     const city = document.querySelector('#search-input').value;
     const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}&units=metric`;
-
+    returnWeatherCall(url)
 };
 
 const renderSearchUI = (() => {
@@ -42,8 +41,9 @@ const renderSearchUI = (() => {
     
 })();
 
-/* const renderWeatherToDom = () => {
-    const container = document.querySelector('#search-results-container');
+const renderWeatherToDom = (weatherData) => {
+    console.log(weatherData.name)
+    const container = document.querySelector('#display-results-container');
     const location = document.createElement('h1');
     const temperature = document.createElement('span');
     const feelsLikeTemp = document.createElement('span');
@@ -51,17 +51,19 @@ const renderSearchUI = (() => {
     const maxTemp = document.createElement('span');
     const humidity = document.createElement('span');
 
-    location.textContent = weatherData.name;
+    const time = new Date()
 
-    temperature.textContent = `${weatherData.main[temp]}&#176;`
+    location.textContent = weatherData.name + ` ${time.toLocaleTimeString()}`;
 
-    feelsLikeTemp.textContent = `${weatherData.main[feels_like]}&#176;`
+    temperature.textContent = `${weatherData.main.temp}\xB0`
 
-    minTemp.textContent = `${weatherData.main[temp_min]}&#176;`;
+    feelsLikeTemp.textContent = `${weatherData.main.feels_like}\xB0`
 
-    maxTemp.textContent = `${weatherData.main[temp_max]}&#176;`;
+    minTemp.textContent = `${weatherData.main.temp_min}\xB0`;
 
-    humidity.textContent = `${weatherData.main[humidity]}&#176;`;
+    maxTemp.textContent = `${weatherData.main.temp_max}\xB0`;
+
+    humidity.textContent = `${weatherData.main.humidity}%`;
 
     container.appendChild(location)
     container.appendChild(temperature)
@@ -69,7 +71,7 @@ const renderSearchUI = (() => {
     container.appendChild(minTemp)
     container.appendChild(maxTemp)
     container.appendChild(humidity);
-}; */
+};
 
 
 export { renderSearchUI }
