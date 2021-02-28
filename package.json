@@ -1,9 +1,13 @@
 {
+  "homepage": "https://eli-micho.github.io/weatherapp",
   "name": "weatherapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,7 +20,6 @@
   "bugs": {
     "url": "https://github.com/eli-micho/weatherapp/issues"
   },
-  "homepage": "https://github.com/eli-micho/weatherapp#readme",
   "devDependencies": {
     "@babel/core": "^7.12.13",
     "webpack": "^5.21.2",
@@ -24,7 +27,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
-    "babel-loader": "^8.2.2"
-  },
-  "proxy": "http://localhost:5501/"
+    "babel-loader": "^8.2.2",
+    "gh-pages": "^3.1.0"
+  }
 }

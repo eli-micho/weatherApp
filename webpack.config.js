@@ -14,6 +14,5 @@ module.exports = {
               use: ['babel-loader']
           }
       ]
-  },
-  watch: true,
+  }
 };
